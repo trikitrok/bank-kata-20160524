@@ -18,11 +18,20 @@ public class NiceEnglishFormatTest {
     }
 
     @Test
-    public void formats_a_statement_line() {
+    public void formats_a_credit_statement_line() {
         Format format = new NiceEnglishFormat();
 
         assertThat(
             format.formatLine(new StatementLine(new Date("17/01/2016"), 500, 1500)),
             is("17/01/2016 || 500.00 || || 1500.00"));
+    }
+
+    @Test
+    public void formats_a_debit_statement_line() {
+        Format format = new NiceEnglishFormat();
+
+        assertThat(
+            format.formatLine(new StatementLine(new Date("17/01/2016"), -500, 1500)),
+            is("17/01/2016 || || 500.00 || 1500.00"));
     }
 }

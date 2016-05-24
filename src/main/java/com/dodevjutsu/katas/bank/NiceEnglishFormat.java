@@ -31,7 +31,7 @@ public class NiceEnglishFormat implements Format {
     private String debitFrom(StatementLine statementLine) {
         int amount = statementLine.amount();
         if (amount < 0) {
-            return " " + padWithTwoDecimals(amount) + " ";
+            return " " + padWithTwoDecimals(Math.abs(amount)) + " ";
         }
         return " ";
     }
