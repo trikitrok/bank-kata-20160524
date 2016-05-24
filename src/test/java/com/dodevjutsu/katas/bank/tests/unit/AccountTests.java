@@ -17,6 +17,7 @@ public class AccountTests {
     private Transactions transactions;
     private StatementPrinter statementPrinter;
     private Account account;
+    final int ANY_AMOUNT = 500;
 
     @Before
     public void setUp() {
@@ -28,24 +29,22 @@ public class AccountTests {
 
     @Test
     public void deposits_amount() {
-        int amount = 100;
         context.checking(new Expectations() {{
-            oneOf(transactions).record(amount);
+            oneOf(transactions).record(ANY_AMOUNT);
         }});
 
-        account.deposit(amount);
+        account.deposit(ANY_AMOUNT);
 
         context.assertIsSatisfied();
     }
 
     @Test
     public void withdraws_amount() {
-        int amount = 100;
         context.checking(new Expectations() {{
-            oneOf(transactions).record(-amount);
+            oneOf(transactions).record(-ANY_AMOUNT);
         }});
 
-        account.withdraw(amount);
+        account.withdraw(ANY_AMOUNT);
 
         context.assertIsSatisfied();
     }
