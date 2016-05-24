@@ -8,4 +8,8 @@ public class Transaction {
         this.amount = amount;
         this.day = day;
     }
+
+    public StatementLine generateStatementLine(int accumulatedBalance) {
+        return new StatementLine(day, Math.abs(amount), amount + accumulatedBalance);
+    }
 }
