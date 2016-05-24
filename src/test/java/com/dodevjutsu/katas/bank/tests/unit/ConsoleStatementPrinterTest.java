@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder.aStatementLine;
 
 public class ConsoleStatementPrinterTest {
     Mockery context;
@@ -27,8 +28,15 @@ public class ConsoleStatementPrinterTest {
         String header = "date || credit || debit || balance";
         String firstLine = "first line";
         String secondLine = "second line";
-        final StatementLine secondStatementLine = new StatementLine(new Date("13/01/2012"), 2000, 3000);
-        final StatementLine firstStatementLine = new StatementLine(new Date("10/01/2012"), 1000, 1000);
+        StatementLine firstStatementLine = aStatementLine()
+            .on("10/01/2012")
+            .ofAmount(1000)
+            .andBalance(1000).build();
+        StatementLine secondStatementLine = aStatementLine()
+            .on("13/01/2012")
+            .ofAmount(2000)
+            .andBalance(3000).build();
+
         context.checking(new Expectations() {{
             oneOf(format).header();
             will(returnValue(header));

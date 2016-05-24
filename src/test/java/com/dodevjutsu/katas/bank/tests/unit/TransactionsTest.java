@@ -1,13 +1,16 @@
 package com.dodevjutsu.katas.bank.tests.unit;
 
-import com.dodevjutsu.katas.bank.*;
+import com.dodevjutsu.katas.bank.Clock;
+import com.dodevjutsu.katas.bank.Date;
+import com.dodevjutsu.katas.bank.Transactions;
+import com.dodevjutsu.katas.bank.tests.helpers.StatementFactory;
+import com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anEmptyStatement;
-import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -31,20 +34,23 @@ abstract public class TransactionsTest {
 
     @Test
     public void when_transactions_are_recorded_the_statement_contains_them() {
+        Date firstTransactionDate = new Date("10/01/2012");
+        Date secondTransactionDate = new Date("14/01/2012");
+
         context.checking(new Expectations() {{
             exactly(2).of(clock).day();
             will(onConsecutiveCalls(
-                returnValue(new Date("10/01/2012")),
-                returnValue(new Date("14/01/2012"))
+                returnValue(firstTransactionDate),
+                returnValue(secondTransactionDate)
             ));
         }});
         transactions.record(1000);
         transactions.record(-500);
 
         assertThat(transactions.statement(),
-            is(aStatementContainingLines(
-                new StatementLine(new Date("10/01/2012"), 1000, 1000),
-                new StatementLine(new Date("14/01/2012"), -500, 500)))
+            is(StatementFactory.aStatementContainingLines(
+                StatementLineBuilder.aStatementLine().on(firstTransactionDate).ofAmount(1000).andBalance(1000),
+                StatementLineBuilder.aStatementLine().on(secondTransactionDate).ofAmount(-500).andBalance(500)))
         );
     }
 
