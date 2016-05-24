@@ -20,6 +20,6 @@ public class Account {
     }
 
     public void printStatement() {
-
+        transactions.statement();
     }
 }

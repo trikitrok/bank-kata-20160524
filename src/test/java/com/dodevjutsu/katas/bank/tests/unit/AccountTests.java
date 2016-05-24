@@ -1,6 +1,7 @@
 package com.dodevjutsu.katas.bank.tests.unit;
 
 import com.dodevjutsu.katas.bank.Account;
+import com.dodevjutsu.katas.bank.Statement;
 import com.dodevjutsu.katas.bank.StatementPrinter;
 import com.dodevjutsu.katas.bank.Transactions;
 import org.jmock.Expectations;
@@ -16,11 +17,11 @@ public class AccountTests {
     private Account account;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         context = new Mockery();
         transactions = context.mock(Transactions.class);
         statementPrinter = context.mock(StatementPrinter.class);
-        account =  new Account(transactions, statementPrinter);
+        account = new Account(transactions, statementPrinter);
     }
 
     @Test
@@ -43,6 +44,19 @@ public class AccountTests {
         }});
 
         account.withdraw(amount);
+
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void a_statement_of_the_transactions_is_produced_in_order_to_print_it() {
+        context.checking(new Expectations() {{
+            ignoring(statementPrinter);
+            oneOf(transactions).statement();
+            will(returnValue(with(any(Statement.class))));
+        }});
+
+        account.printStatement();
 
         context.assertIsSatisfied();
     }
