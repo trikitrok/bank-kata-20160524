@@ -1,9 +1,6 @@
 package com.dodevjutsu.katas.bank.tests.acceptance;
 
-import com.dodevjutsu.katas.bank.Account;
-import com.dodevjutsu.katas.bank.Clock;
-import com.dodevjutsu.katas.bank.Console;
-import com.dodevjutsu.katas.bank.Date;
+import com.dodevjutsu.katas.bank.*;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -21,12 +18,17 @@ public class PrintingAccountStatementTest {
         context = new Mockery();
         console = context.mock(Console.class);
         clock = context.mock(Clock.class);
-        account = new Account(console, clock);
+        account = new Account(
+            new InMemoryTransactions(clock),
+            new ConsoleStatementPrinter(
+                new NiceEnglishFormat(),
+                console
+            )
+        );
     }
 
     @Test
     public void deposit_and_withdrawal() {
-
         context.checking(new Expectations() {{
             exactly(3).of(clock).day();
             will(onConsecutiveCalls(
