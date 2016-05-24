@@ -44,7 +44,7 @@ abstract public class TransactionsTest {
         assertThat(transactions.statement(),
             is(aStatementContainingLines(
                 new StatementLine(new Date("10/01/2012"), 1000, 1000),
-                new StatementLine(new Date("14/01/2012"), 500, 500)))
+                new StatementLine(new Date("14/01/2012"), -500, 500)))
         );
     }
 

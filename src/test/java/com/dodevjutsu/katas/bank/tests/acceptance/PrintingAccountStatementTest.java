@@ -14,12 +14,14 @@ public class PrintingAccountStatementTest {
     private Mockery context;
     private Console console;
     private Clock clock;
+    private Account account;
 
     @Before
     public void setUp() {
         context = new Mockery();
         console = context.mock(Console.class);
         clock = context.mock(Clock.class);
+        account = new Account(console, clock);
     }
 
     @Test
@@ -38,7 +40,6 @@ public class PrintingAccountStatementTest {
             oneOf(console).print("10/01/2012 || 1000.00 || || 1000.00");
         }});
 
-        final Account account = new Account(console, clock);
         account.deposit(1000);
         account.deposit(2000);
         account.withdraw(500);

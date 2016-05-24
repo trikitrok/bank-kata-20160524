@@ -5,6 +5,8 @@ public class Account {
     private StatementPrinter statementPrinter;
 
     public Account(Console console, Clock clock) {
+        this(new InMemoryTransactions(clock),
+            new ConsoleStatementPrinter(new NiceEnglishFormat(), console));
     }
 
     public Account(Transactions transactions, StatementPrinter statementPrinter) {

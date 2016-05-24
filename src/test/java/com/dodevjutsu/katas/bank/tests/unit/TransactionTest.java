@@ -15,7 +15,7 @@ public class TransactionTest {
 
         assertThat(
             transaction.generateStatementLine(5000),
-            is(new StatementLine(new Date("15/01/2015"), 3000, 2000))
+            is(new StatementLine(new Date("15/01/2015"), -3000, 2000))
         );
     }
 }

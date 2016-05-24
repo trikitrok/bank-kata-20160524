@@ -24,27 +24,29 @@ public class ConsoleStatementPrinterTest {
 
     @Test
     public void prints_formatted_header_and_a_line_for_each_statement_line_in_reverse_order() {
-        StatementLine firstStatementLine = new StatementLine(new Date("07/01/2016"), 200, 200);
-        StatementLine secondStatementLine = new StatementLine(new Date("14/01/2016"), 800, 1000);
         String header = "date || credit || debit || balance";
-        String firstFormattedStatementLine = "14/01/2016 || 800.00 || || 1000.00";
-        String secondFormattedStatementLine = "07/01/2016 || 200.00 || || 200.00";
+        String firstLine = "first line";
+        String secondLine = "second line";
+        final StatementLine secondStatementLine = new StatementLine(new Date("13/01/2012"), 2000, 3000);
+        final StatementLine firstStatementLine = new StatementLine(new Date("10/01/2012"), 1000, 1000);
+
         context.checking(new Expectations() {{
-            oneOf(format).header();
-            will(returnValue(header));
-            oneOf(format).formatLine(secondStatementLine);
-            will(returnValue(firstFormattedStatementLine));
-            oneOf(format).formatLine(firstStatementLine);
-            will(returnValue(secondFormattedStatementLine));
+            oneOf(format).header(); will(returnValue(header));
+
+            atLeast(1).of(format).formatLine(with(secondStatementLine));
+            will(returnValue(firstLine));
+
+            atLeast(1).of(format).formatLine(with(firstStatementLine));
+            will(returnValue(secondLine));
 
             oneOf(console).print(header);
-            oneOf(console).print(firstFormattedStatementLine);
-            oneOf(console).print(secondFormattedStatementLine);
+            oneOf(console).print(firstLine);
+            oneOf(console).print(secondLine);
         }});
 
-        statementPrinter.print(aStatementContainingLines(
-            firstStatementLine, secondStatementLine
-        ));
+        statementPrinter.print(
+            aStatementContainingLines(firstStatementLine, secondStatementLine)
+        );
 
         context.assertIsSatisfied();
     }
