@@ -11,6 +11,19 @@ public class StatementLine {
         this.balance = balance;
     }
 
+    public Date date() {
+        return date;
+    }
+
+    public int amount() {
+        return amount;
+    }
+
+
+    public int balance() {
+        return balance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

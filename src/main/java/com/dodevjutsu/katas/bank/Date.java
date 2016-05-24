@@ -7,6 +7,10 @@ public class Date {
         this.date = date;
     }
 
+    public String value() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
