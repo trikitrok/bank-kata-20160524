@@ -9,6 +9,7 @@ public class Account {
 
     public Account(Transactions transactions, StatementPrinter statementPrinter) {
         this.transactions = transactions;
+        this.statementPrinter = statementPrinter;
     }
 
     public void deposit(int amount) {
@@ -20,6 +21,7 @@ public class Account {
     }
 
     public void printStatement() {
-        transactions.statement();
+        Statement statement = transactions.statement();
+        statementPrinter.print(statement);
     }
 }

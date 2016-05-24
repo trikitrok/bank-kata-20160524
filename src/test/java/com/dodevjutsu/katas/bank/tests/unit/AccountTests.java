@@ -6,8 +6,11 @@ import com.dodevjutsu.katas.bank.StatementPrinter;
 import com.dodevjutsu.katas.bank.Transactions;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.api.Expectation;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.core.IsInstanceOf.any;
 
 public class AccountTests {
 
@@ -54,6 +57,20 @@ public class AccountTests {
             ignoring(statementPrinter);
             oneOf(transactions).statement();
             will(returnValue(with(any(Statement.class))));
+        }});
+
+        account.printStatement();
+
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void the_produced_statement_is_printed() {
+        Statement producedStatement = new Statement();
+        context.checking(new Expectations() {{
+            oneOf(transactions).statement();
+            will(returnValue(producedStatement));
+            oneOf(statementPrinter).print(with(same(producedStatement)));
         }});
 
         account.printStatement();
