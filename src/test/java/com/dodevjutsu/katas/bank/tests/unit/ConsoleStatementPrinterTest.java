@@ -6,8 +6,7 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anStatementContainingLines;
-import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anyStatement;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
 
 public class ConsoleStatementPrinterTest {
     Mockery context;
@@ -43,7 +42,7 @@ public class ConsoleStatementPrinterTest {
             oneOf(console).print(secondFormattedStatementLine);
         }});
 
-        statementPrinter.print(anStatementContainingLines(
+        statementPrinter.print(aStatementContainingLines(
             firstStatementLine, secondStatementLine
         ));
 

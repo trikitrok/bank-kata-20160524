@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anEmptyStatement;
-import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anStatementContainingLines;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -42,7 +42,7 @@ abstract public class TransactionsTest {
         transactions.record(-500);
 
         assertThat(transactions.statement(),
-            is(anStatementContainingLines(
+            is(aStatementContainingLines(
                 new StatementLine(new Date("10/01/2012"), 1000, 1000),
                 new StatementLine(new Date("14/01/2012"), 500, 500)))
         );

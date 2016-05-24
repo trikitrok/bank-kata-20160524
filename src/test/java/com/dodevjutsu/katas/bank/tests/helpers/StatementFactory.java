@@ -11,7 +11,7 @@ public class StatementFactory {
         return new Statement(Collections.emptyList());
     }
 
-    public static Statement anStatementContainingLines(StatementLine... statementLines) {
+    public static Statement aStatementContainingLines(StatementLine... statementLines) {
         return new Statement(Arrays.asList(statementLines));
     }
 
