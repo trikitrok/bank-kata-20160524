@@ -7,11 +7,6 @@ public class Statement {
     private final String header;
     private final List<StatementLine> statementLines;
 
-    public Statement() {
-        this.header = "date || credit || debit || balance";
-        this.statementLines = new ArrayList<>();
-    }
-
     public Statement(List<StatementLine> statementLines) {
         this.header = "date || credit || debit || balance";
         this.statementLines = statementLines;

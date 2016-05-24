@@ -6,8 +6,8 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anEmptyStatement;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anStatementContainingLines;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -26,7 +26,7 @@ abstract public class TransactionsTest {
 
     @Test
     public void when_no_transactions_were_recorded_an_empty_statement_is_produced() {
-        assertThat(transactions.statement(), is(new Statement()));
+        assertThat(transactions.statement(), is(anEmptyStatement()));
     }
 
     @Test
@@ -41,12 +41,11 @@ abstract public class TransactionsTest {
         transactions.record(1000);
         transactions.record(-500);
 
-        assertThat(
-            transactions.statement(),
-            is(new Statement(
-                Arrays.asList(
-                    new StatementLine(new Date("10/01/2012"), 1000, 1000),
-                    new StatementLine(new Date("14/01/2012"), 500, 500)))));
+        assertThat(transactions.statement(),
+            is(anStatementContainingLines(
+                new StatementLine(new Date("10/01/2012"), 1000, 1000),
+                new StatementLine(new Date("14/01/2012"), 500, 500)))
+        );
     }
 
     protected abstract Transactions getImplementationUsingClock(Clock clock);

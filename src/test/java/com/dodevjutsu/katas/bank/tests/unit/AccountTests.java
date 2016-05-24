@@ -6,11 +6,10 @@ import com.dodevjutsu.katas.bank.StatementPrinter;
 import com.dodevjutsu.katas.bank.Transactions;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.api.Expectation;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.core.IsInstanceOf.any;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anyStatement;
 
 public class AccountTests {
 
@@ -66,7 +65,7 @@ public class AccountTests {
 
     @Test
     public void the_produced_statement_is_printed() {
-        Statement producedStatement = new Statement();
+        Statement producedStatement = anyStatement();
         context.checking(new Expectations() {{
             oneOf(transactions).statement();
             will(returnValue(producedStatement));
