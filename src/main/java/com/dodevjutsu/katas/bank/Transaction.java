@@ -12,4 +12,8 @@ public class Transaction {
     public StatementLine generateStatementLine(int accumulatedBalance) {
         return new StatementLine(day, Math.abs(amount), amount + accumulatedBalance);
     }
+
+    public int amount() {
+        return amount;
+    }
 }

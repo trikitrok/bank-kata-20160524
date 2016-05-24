@@ -41,12 +41,12 @@ abstract public class TransactionsTest {
         transactions.record(1000);
         transactions.record(-500);
 
-        assertThat(transactions.statement(),
+        assertThat(
+            transactions.statement(),
             is(new Statement(
                 Arrays.asList(
-                    new StatementLine(new Date("14/01/2012"), 500, 500),
-                    new StatementLine(new Date("10/01/2012"), 1000, 1000)))
-            ));
+                    new StatementLine(new Date("10/01/2012"), 1000, 1000),
+                    new StatementLine(new Date("14/01/2012"), 500, 500)))));
     }
 
     protected abstract Transactions getImplementationUsingClock(Clock clock);

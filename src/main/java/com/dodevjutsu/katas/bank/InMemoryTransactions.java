@@ -2,6 +2,7 @@ package com.dodevjutsu.katas.bank;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class InMemoryTransactions implements Transactions {
@@ -20,11 +21,20 @@ public class InMemoryTransactions implements Transactions {
 
     @Override
     public Statement statement() {
-        if(transactions.isEmpty()) {
+        if (transactions.isEmpty()) {
             return new Statement();
         }
-        return new Statement(Arrays.asList(
-            new StatementLine(new Date("14/01/2012"), 500,  500),
-            new StatementLine(new Date("10/01/2012"), 1000,  1000)));
+        return generateStatement();
+    }
+
+    private Statement generateStatement() {
+        List<StatementLine> statementLines = new ArrayList<>();
+        int accumulatedBalance = 0;
+
+        for (Transaction transaction : transactions) {
+            statementLines.add(transaction.generateStatementLine(accumulatedBalance));
+            accumulatedBalance += transaction.amount();
+        }
+        return new Statement(statementLines);
     }
 }
