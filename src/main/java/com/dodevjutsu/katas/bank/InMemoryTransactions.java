@@ -1,8 +1,6 @@
 package com.dodevjutsu.katas.bank;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class InMemoryTransactions implements Transactions {
@@ -21,16 +19,8 @@ public class InMemoryTransactions implements Transactions {
 
     @Override
     public Statement statement() {
-        if (transactions.isEmpty()) {
-            return new Statement();
-        }
-        return generateStatement();
-    }
-
-    private Statement generateStatement() {
         List<StatementLine> statementLines = new ArrayList<>();
         int accumulatedBalance = 0;
-
         for (Transaction transaction : transactions) {
             statementLines.add(transaction.generateStatementLine(accumulatedBalance));
             accumulatedBalance += transaction.amount();
