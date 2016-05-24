@@ -29,9 +29,9 @@ public class ConsoleStatementPrinterTest {
         String secondLine = "second line";
         final StatementLine secondStatementLine = new StatementLine(new Date("13/01/2012"), 2000, 3000);
         final StatementLine firstStatementLine = new StatementLine(new Date("10/01/2012"), 1000, 1000);
-
         context.checking(new Expectations() {{
-            oneOf(format).header(); will(returnValue(header));
+            oneOf(format).header();
+            will(returnValue(header));
 
             atLeast(1).of(format).formatLine(with(secondStatementLine));
             will(returnValue(firstLine));
