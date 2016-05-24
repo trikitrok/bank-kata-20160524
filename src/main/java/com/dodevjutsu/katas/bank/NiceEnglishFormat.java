@@ -17,7 +17,7 @@ public class NiceEnglishFormat implements Format {
 
     private String dateFrom(StatementLine statementLine) {
         Date date = statementLine.date();
-        return String.format("%s ", date.value());
+        return String.format("%s/%s/%s ", date.day(), date.month(), date.year());
     }
 
     private String creditFrom(StatementLine statementLine) {
