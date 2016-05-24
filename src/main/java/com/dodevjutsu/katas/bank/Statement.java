@@ -1,14 +1,11 @@
 package com.dodevjutsu.katas.bank;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Statement {
-    private final String header;
     private final List<StatementLine> statementLines;
 
     public Statement(List<StatementLine> statementLines) {
-        this.header = "date || credit || debit || balance";
         this.statementLines = statementLines;
     }
 
@@ -19,23 +16,19 @@ public class Statement {
 
         Statement statement = (Statement) o;
 
-        if (header != null ? !header.equals(statement.header) : statement.header != null) return false;
         return statementLines != null ? statementLines.equals(statement.statementLines) : statement.statementLines == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = header != null ? header.hashCode() : 0;
-        result = 31 * result + (statementLines != null ? statementLines.hashCode() : 0);
-        return result;
+        return statementLines != null ? statementLines.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Statement{" +
-            "header='" + header + '\'' +
-            ", statementLines=" + statementLines +
+            "statementLines=" + statementLines +
             '}';
     }
 }
