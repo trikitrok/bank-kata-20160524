@@ -14,9 +14,7 @@ public class Statement {
     public void printLines(Format format, Console console) {
         List<StatementLine> reversed = new ArrayList<>(statementLines);
         Collections.reverse(reversed);
-        for(StatementLine statementLine : reversed) {
-            console.print(format.formatLine(statementLine));
-        }
+        reversed.forEach(statementLine -> console.print(format.formatLine(statementLine)));
     }
 
     @Override
