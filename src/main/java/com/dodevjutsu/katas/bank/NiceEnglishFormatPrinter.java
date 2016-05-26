@@ -15,46 +15,54 @@ public class NiceEnglishFormatPrinter implements StatementPrinter {
         printLines(statement.linesInReversedOrder());
     }
 
-    private void printLines(List<StatementLine> lines) {
-        lines.forEach(line -> console.print(formatLine(line)));
+    private void printLines(List<StatementLine> statementLines) {
+        statementLines.stream()
+            .map(statementLine -> NiceEnglishFormat.format(statementLine))
+            .forEach(line -> console.print(line));
     }
 
     private void printHeader() {
-        console.print("date || credit || debit || balance");
+        console.print(NiceEnglishFormat.header());
     }
 
-    private String formatLine(StatementLine statementLine) {
-        return String.format("%s||%s||%s||%s",
-            dateFrom(statementLine),
-            creditFrom(statementLine),
-            debitFrom(statementLine),
-            balanceFrom(statementLine));
-    }
-
-    private String dateFrom(StatementLine statementLine) {
-        Date date = statementLine.date();
-        return String.format("%s/%s/%s ", date.day(), date.month(), date.year());
-    }
-
-    private String creditFrom(StatementLine statementLine) {
-        if (statementLine.isCredit()) {
-            return String.format(" %s ", padWithTwoDecimals(statementLine.amount()));
+    private static class NiceEnglishFormat {
+        static String format(StatementLine statementLine) {
+            return String.format("%s||%s||%s||%s",
+                dateFrom(statementLine),
+                creditFrom(statementLine),
+                debitFrom(statementLine),
+                balanceFrom(statementLine));
         }
-        return " ";
-    }
 
-    private String debitFrom(StatementLine statementLine) {
-        if (statementLine.isDebit()) {
-            return " " + padWithTwoDecimals(Math.abs(statementLine.amount())) + " ";
+        static String header() {
+            return "date || credit || debit || balance";
         }
-        return " ";
-    }
 
-    private String balanceFrom(StatementLine statementLine) {
-        return " " + padWithTwoDecimals(statementLine.balance());
-    }
+        private static String dateFrom(StatementLine statementLine) {
+            Date date = statementLine.date();
+            return String.format("%s/%s/%s ", date.day(), date.month(), date.year());
+        }
 
-    private String padWithTwoDecimals(int number) {
-        return number + ".00";
+        private static String creditFrom(StatementLine statementLine) {
+            if (statementLine.isCredit()) {
+                return String.format(" %s ", padWithTwoDecimals(statementLine.amount()));
+            }
+            return " ";
+        }
+
+        private static String debitFrom(StatementLine statementLine) {
+            if (statementLine.isDebit()) {
+                return " " + padWithTwoDecimals(Math.abs(statementLine.amount())) + " ";
+            }
+            return " ";
+        }
+
+        private static String balanceFrom(StatementLine statementLine) {
+            return " " + padWithTwoDecimals(statementLine.balance());
+        }
+
+        private static String padWithTwoDecimals(int number) {
+            return number + ".00";
+        }
     }
 }

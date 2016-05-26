@@ -13,7 +13,7 @@ import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatemen
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anEmptyStatement;
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder.aStatementLine;
 
-public class NiceEnglishFormatTest {
+public class NiceEnglishFormatPrinterTest {
     private Mockery context;
     private StatementPrinter printer;
     private Console console;
