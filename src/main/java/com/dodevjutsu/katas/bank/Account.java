@@ -2,11 +2,11 @@ package com.dodevjutsu.katas.bank;
 
 public class Account {
     private Transactions transactions;
-    private StatementPrinter statementPrinter;
+    private StatementPrinter printer;
 
     public Account(Transactions transactions, StatementPrinter statementPrinter) {
         this.transactions = transactions;
-        this.statementPrinter = statementPrinter;
+        this.printer = statementPrinter;
     }
 
     public void deposit(int amount) {
@@ -18,7 +18,6 @@ public class Account {
     }
 
     public void printStatement() {
-        Statement statement = transactions.statement();
-        statementPrinter.print(statement);
+        printer.print(transactions.statement());
     }
 }
