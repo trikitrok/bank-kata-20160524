@@ -19,7 +19,6 @@ public class StatementLine {
         return amount;
     }
 
-
     public int balance() {
         return balance;
     }

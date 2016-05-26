@@ -20,10 +20,7 @@ public class PrintingAccountStatementTest {
         clock = context.mock(Clock.class);
         account = new Account(
             new InMemoryTransactions(clock),
-            new ConsoleStatementPrinter(
-                new NiceEnglishFormat(),
-                console
-            )
+            new NiceEnglishFormatPrinter(console)
         );
     }
 

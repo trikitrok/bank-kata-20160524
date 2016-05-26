@@ -1,20 +1,26 @@
 package com.dodevjutsu.katas.bank;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class NiceEnglishFormat implements Format {
-    @Override
-    public void printHeader(Console console) {
-        console.print("date || credit || debit || balance");
+public class NiceEnglishFormatPrinter implements StatementPrinter {
+    private final Console console;
+
+    public NiceEnglishFormatPrinter(Console console) {
+        this.console = console;
     }
 
     @Override
-    public void printLines(List<StatementLine> statementLines, Console console) {
-        List<StatementLine> reversed = new ArrayList<>(statementLines);
-        Collections.reverse(reversed);
-        reversed.forEach(statementLine -> console.print(formatLine(statementLine)));
+    public void print(Statement statement) {
+        printHeader();
+        printLines(statement.linesInReversedOrder());
+    }
+
+    private void printLines(List<StatementLine> lines) {
+        lines.forEach(line -> console.print(formatLine(line)));
+    }
+
+    private void printHeader() {
+        console.print("date || credit || debit || balance");
     }
 
     private String formatLine(StatementLine statementLine) {
@@ -32,18 +38,26 @@ public class NiceEnglishFormat implements Format {
 
     private String creditFrom(StatementLine statementLine) {
         int amount = statementLine.amount();
-        if (amount >= 0) {
+        if (isCredit(amount)) {
             return " " + padWithTwoDecimals(amount) + " ";
         }
         return " ";
     }
 
+    private boolean isCredit(int amount) {
+        return amount >= 0;
+    }
+
     private String debitFrom(StatementLine statementLine) {
         int amount = statementLine.amount();
-        if (amount < 0) {
+        if (isDebit(amount)) {
             return " " + padWithTwoDecimals(Math.abs(amount)) + " ";
         }
         return " ";
+    }
+
+    private boolean isDebit(int amount) {
+        return amount < 0;
     }
 
     private String balanceFrom(StatementLine statementLine) {
