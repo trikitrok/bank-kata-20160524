@@ -41,10 +41,10 @@ public class ConsoleStatementPrinterTest {
             oneOf(format).header();
             will(returnValue(header));
 
-            atLeast(1).of(format).formatLine(with(secondStatementLine));
+            oneOf(format).formatLine(with(secondStatementLine));
             will(returnValue(firstLine));
 
-            atLeast(1).of(format).formatLine(with(firstStatementLine));
+            oneOf(format).formatLine(with(firstStatementLine));
             will(returnValue(secondLine));
 
             oneOf(console).print(header);
