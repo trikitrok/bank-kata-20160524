@@ -37,27 +37,17 @@ public class NiceEnglishFormatPrinter implements StatementPrinter {
     }
 
     private String creditFrom(StatementLine statementLine) {
-        int amount = statementLine.amount();
-        if (isCredit(amount)) {
-            return " " + padWithTwoDecimals(amount) + " ";
+        if (statementLine.isCredit()) {
+            return String.format(" %s ", padWithTwoDecimals(statementLine.amount()));
         }
         return " ";
-    }
-
-    private boolean isCredit(int amount) {
-        return amount >= 0;
     }
 
     private String debitFrom(StatementLine statementLine) {
-        int amount = statementLine.amount();
-        if (isDebit(amount)) {
-            return " " + padWithTwoDecimals(Math.abs(amount)) + " ";
+        if (statementLine.isDebit()) {
+            return " " + padWithTwoDecimals(Math.abs(statementLine.amount())) + " ";
         }
         return " ";
-    }
-
-    private boolean isDebit(int amount) {
-        return amount < 0;
     }
 
     private String balanceFrom(StatementLine statementLine) {
