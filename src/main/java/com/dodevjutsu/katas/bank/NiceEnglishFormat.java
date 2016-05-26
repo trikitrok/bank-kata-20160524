@@ -21,26 +21,24 @@ public class NiceEnglishFormat implements Format {
     }
 
     private String creditFrom(StatementLine statementLine) {
-        int amount = statementLine.amount();
-        if (amount >= 0) {
-            return " " + padWithTwoDecimals(amount) + " ";
+        if (statementLine.isCredit()) {
+            return String.format(" %s ", padWithTwoDecimals(statementLine.amount()));
         }
         return " ";
     }
 
     private String debitFrom(StatementLine statementLine) {
-        int amount = statementLine.amount();
-        if (amount < 0) {
-            return " " + padWithTwoDecimals(Math.abs(amount)) + " ";
+        if (statementLine.isDebit()) {
+            return String.format(" %s ", padWithTwoDecimals(Math.abs(statementLine.amount())));
         }
         return " ";
     }
 
     private String balanceFrom(StatementLine statementLine) {
-        return " " + padWithTwoDecimals(statementLine.balance());
+        return String.format(" %s", padWithTwoDecimals(statementLine.balance()));
     }
 
     private String padWithTwoDecimals(int number) {
-        return number + ".00";
+        return String.format("%d.00", number);
     }
 }

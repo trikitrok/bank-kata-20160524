@@ -53,4 +53,12 @@ public class StatementLine {
             ", balance=" + balance +
             '}';
     }
+
+    public boolean isDebit() {
+        return amount < 0;
+    }
+
+    public boolean isCredit() {
+        return amount >= 0;
+    }
 }
