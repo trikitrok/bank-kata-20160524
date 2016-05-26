@@ -2,21 +2,21 @@ package com.dodevjutsu.katas.bank;
 
 public class StatementLine {
     private final Date date;
-    private final Amount amount;
+    private final int amount;
     private final int balance;
 
     public StatementLine(Date date, int amount, int balance) {
         this.date = date;
-        this.amount = new Amount(amount);
+        this.amount = amount;
         this.balance = balance;
     }
 
     public boolean isCredit() {
-        return amount.isCredit();
+        return amount >= 0;
     }
 
     public boolean isDebit() {
-        return amount.isDebit();
+        return !isCredit();
     }
 
     public Date date() {
@@ -24,7 +24,7 @@ public class StatementLine {
     }
 
     public int amount() {
-        return amount.value();
+        return amount;
     }
 
     public int balance() {
@@ -47,16 +47,15 @@ public class StatementLine {
 
         StatementLine that = (StatementLine) o;
 
+        if (amount != that.amount) return false;
         if (balance != that.balance) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        return amount != null ? amount.equals(that.amount) : that.amount == null;
-
+        return date != null ? date.equals(that.date) : that.date == null;
     }
 
     @Override
     public int hashCode() {
         int result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + amount;
         result = 31 * result + balance;
         return result;
     }
