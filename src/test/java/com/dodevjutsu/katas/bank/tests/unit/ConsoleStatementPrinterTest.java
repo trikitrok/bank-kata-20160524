@@ -6,6 +6,8 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder.aStatementLine;
 
@@ -25,9 +27,6 @@ public class ConsoleStatementPrinterTest {
 
     @Test
     public void prints_formatted_header_and_a_line_for_each_statement_line_in_reverse_order() {
-        String header = "date || credit || debit || balance";
-        String firstLine = "first line";
-        String secondLine = "second line";
         StatementLine firstStatementLine = aStatementLine()
             .on("10/01/2012")
             .ofAmount(1000)
@@ -38,18 +37,11 @@ public class ConsoleStatementPrinterTest {
             .andBalance(3000).build();
 
         context.checking(new Expectations() {{
-            oneOf(format).header();
-            will(returnValue(header));
-
-            oneOf(format).formatLine(with(secondStatementLine));
-            will(returnValue(firstLine));
-
-            oneOf(format).formatLine(with(firstStatementLine));
-            will(returnValue(secondLine));
-
-            oneOf(console).print(header);
-            oneOf(console).print(firstLine);
-            oneOf(console).print(secondLine);
+            oneOf(format).printHeader(console);
+            oneOf(format).printLines(
+                Arrays.asList(firstStatementLine, secondStatementLine),
+                console
+            );
         }});
 
         statementPrinter.print(

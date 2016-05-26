@@ -1,6 +1,9 @@
 package com.dodevjutsu.katas.bank;
 
+import java.util.List;
+
 public interface Format {
-    String header();
-    String formatLine(StatementLine statementLine);
+    void printHeader(Console console);
+
+    void printLines(List<StatementLine> statementLines, Console console);
 }

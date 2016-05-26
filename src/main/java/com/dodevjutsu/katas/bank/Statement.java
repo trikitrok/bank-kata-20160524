@@ -1,7 +1,5 @@
 package com.dodevjutsu.katas.bank;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Statement {
@@ -12,9 +10,7 @@ public class Statement {
     }
 
     public void printLines(Format format, Console console) {
-        List<StatementLine> reversed = new ArrayList<>(statementLines);
-        Collections.reverse(reversed);
-        reversed.forEach(statementLine -> console.print(format.formatLine(statementLine)));
+        format.printLines(statementLines, console);
     }
 
     @Override

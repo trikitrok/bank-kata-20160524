@@ -11,7 +11,7 @@ public class ConsoleStatementPrinter implements StatementPrinter {
 
     @Override
     public void print(Statement statement) {
-        console.print(format.header());
+        format.printHeader(console);
         statement.printLines(format, console);
     }
 }

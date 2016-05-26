@@ -1,13 +1,23 @@
 package com.dodevjutsu.katas.bank;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class NiceEnglishFormat implements Format {
     @Override
-    public String header() {
-        return "date || credit || debit || balance";
+    public void printHeader(Console console) {
+        console.print("date || credit || debit || balance");
     }
 
     @Override
-    public String formatLine(StatementLine statementLine) {
+    public void printLines(List<StatementLine> statementLines, Console console) {
+        List<StatementLine> reversed = new ArrayList<>(statementLines);
+        Collections.reverse(reversed);
+        reversed.forEach(statementLine -> console.print(formatLine(statementLine)));
+    }
+
+    private String formatLine(StatementLine statementLine) {
         return String.format("%s||%s||%s||%s",
             dateFrom(statementLine),
             creditFrom(statementLine),
