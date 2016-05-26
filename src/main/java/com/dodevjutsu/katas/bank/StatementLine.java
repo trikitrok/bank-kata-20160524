@@ -11,6 +11,14 @@ public class StatementLine {
         this.balance = balance;
     }
 
+    public boolean isDebit() {
+        return amount < 0;
+    }
+
+    public boolean isCredit() {
+        return amount >= 0;
+    }
+
     public Date date() {
         return date;
     }
@@ -18,7 +26,6 @@ public class StatementLine {
     public int amount() {
         return amount;
     }
-
 
     public int balance() {
         return balance;
@@ -52,13 +59,5 @@ public class StatementLine {
             ", amount=" + amount +
             ", balance=" + balance +
             '}';
-    }
-
-    public boolean isDebit() {
-        return amount < 0;
-    }
-
-    public boolean isCredit() {
-        return amount >= 0;
     }
 }
