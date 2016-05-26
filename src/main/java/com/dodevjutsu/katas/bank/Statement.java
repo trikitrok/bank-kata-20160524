@@ -11,6 +11,14 @@ public class Statement {
         this.statementLines = statementLines;
     }
 
+    public void printLines(Format format, Console console) {
+        List<StatementLine> reversed = new ArrayList<>(statementLines);
+        Collections.reverse(reversed);
+        for(StatementLine statementLine : reversed) {
+            console.print(format.formatLine(statementLine));
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,13 +40,5 @@ public class Statement {
         return "Statement{" +
             "statementLines=" + statementLines +
             '}';
-    }
-
-    public void printLines(Format format, Console console) {
-        List<StatementLine> reversed = new ArrayList<>(statementLines);
-        Collections.reverse(reversed);
-        for(StatementLine statementLine : reversed) {
-            console.print(format.formatLine(statementLine));
-        }
     }
 }
