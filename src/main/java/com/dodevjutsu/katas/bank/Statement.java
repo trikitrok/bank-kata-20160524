@@ -12,9 +12,15 @@ public class Statement {
     }
 
     public void printLines(Format format, Console console) {
+        statementLinesInReverseOrder().forEach(
+            line -> console.print(format.formatLine(line))
+        );
+    }
+
+    private List<StatementLine> statementLinesInReverseOrder() {
         List<StatementLine> reversed = new ArrayList<>(statementLines);
         Collections.reverse(reversed);
-        reversed.forEach(statementLine -> console.print(format.formatLine(statementLine)));
+        return reversed;
     }
 
     @Override
