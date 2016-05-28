@@ -28,7 +28,7 @@ public class PrintingAccountStatementTest {
     }
 
     @Test
-    public void deposit_and_withdrawal() {
+    public void printing_statement_including_deposit_and_withdrawal() {
         context.checking(new Expectations() {{
             exactly(3).of(clock).day();
             will(onConsecutiveCalls(
