@@ -3,14 +3,14 @@ package com.dodevjutsu.katas.bank.tests.unit;
 import com.dodevjutsu.katas.bank.Clock;
 import com.dodevjutsu.katas.bank.Date;
 import com.dodevjutsu.katas.bank.Transactions;
-import com.dodevjutsu.katas.bank.tests.helpers.StatementFactory;
-import com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatementContainingLines;
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.anEmptyStatement;
+import static com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder.aStatementLine;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -48,9 +48,9 @@ abstract public class TransactionsTest {
         transactions.record(-500);
 
         assertThat(transactions.statement(),
-            is(StatementFactory.aStatementContainingLines(
-                StatementLineBuilder.aStatementLine().on(firstTransactionDate).ofAmount(1000).andBalance(1000),
-                StatementLineBuilder.aStatementLine().on(secondTransactionDate).ofAmount(-500).andBalance(500)))
+            is(aStatementContainingLines(
+                aStatementLine().on(firstTransactionDate).ofAmount(1000).andBalance(1000),
+                aStatementLine().on(secondTransactionDate).ofAmount(-500).andBalance(500)))
         );
     }
 
