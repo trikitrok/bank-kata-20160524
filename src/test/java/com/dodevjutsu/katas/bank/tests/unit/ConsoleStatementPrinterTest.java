@@ -3,6 +3,7 @@ package com.dodevjutsu.katas.bank.tests.unit;
 import com.dodevjutsu.katas.bank.*;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,8 +11,8 @@ import static com.dodevjutsu.katas.bank.tests.helpers.StatementFactory.aStatemen
 import static com.dodevjutsu.katas.bank.tests.helpers.StatementLineBuilder.aStatementLine;
 
 public class ConsoleStatementPrinterTest {
-    Mockery context;
-    Format format;
+    private Mockery context;
+    private Format format;
     private Console console;
     private StatementPrinter statementPrinter;
 
@@ -25,6 +26,7 @@ public class ConsoleStatementPrinterTest {
 
     @Test
     public void prints_formatted_header_and_a_line_for_each_statement_line_in_reverse_order() {
+        Sequence statementLinesSequence = context.sequence("PrintsSequence");
         String header = "date || credit || debit || balance";
         String firstLine = "first line";
         String secondLine = "second line";
@@ -48,8 +50,11 @@ public class ConsoleStatementPrinterTest {
             will(returnValue(secondLine));
 
             oneOf(console).print(header);
+            inSequence(statementLinesSequence);
             oneOf(console).print(firstLine);
+            inSequence(statementLinesSequence);
             oneOf(console).print(secondLine);
+            inSequence(statementLinesSequence);
         }});
 
         statementPrinter.print(

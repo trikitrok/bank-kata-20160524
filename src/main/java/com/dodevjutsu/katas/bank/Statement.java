@@ -2,6 +2,7 @@ package com.dodevjutsu.katas.bank;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Statement {
@@ -12,15 +13,18 @@ public class Statement {
     }
 
     public void printLines(Format format, Console console) {
-        statementLinesInReverseOrder().forEach(
+        statementLinesSortedByDateInDescOrder().forEach(
             line -> console.print(format.formatLine(line))
         );
     }
 
-    private List<StatementLine> statementLinesInReverseOrder() {
-        List<StatementLine> reversed = new ArrayList<>(statementLines);
-        Collections.reverse(reversed);
-        return reversed;
+    private List<StatementLine> statementLinesSortedByDateInDescOrder() {
+        List<StatementLine> statementLinesSortedByDateInDescOrder = new ArrayList<>(this.statementLines);
+        Collections.sort(
+            statementLinesSortedByDateInDescOrder,
+            new DescDateComparator()
+        );
+        return statementLinesSortedByDateInDescOrder;
     }
 
     @Override
@@ -31,7 +35,6 @@ public class Statement {
         Statement statement = (Statement) o;
 
         return statementLines != null ? statementLines.equals(statement.statementLines) : statement.statementLines == null;
-
     }
 
     @Override
@@ -44,5 +47,12 @@ public class Statement {
         return "Statement{" +
             "statementLines=" + statementLines +
             '}';
+    }
+
+    private class DescDateComparator implements Comparator<StatementLine> {
+        @Override
+        public int compare(StatementLine one, StatementLine another) {
+            return -one.date().compare(another.date());
+        }
     }
 }

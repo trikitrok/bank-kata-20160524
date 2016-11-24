@@ -3,6 +3,7 @@ package com.dodevjutsu.katas.bank.tests.acceptance;
 import com.dodevjutsu.katas.bank.*;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +30,7 @@ public class PrintingAccountStatementTest {
 
     @Test
     public void printing_statement_including_deposit_and_withdrawal() {
+        Sequence printsSequence = context.sequence("PrintsSequence");
         context.checking(new Expectations() {{
             exactly(3).of(clock).day();
             will(onConsecutiveCalls(
@@ -37,15 +39,18 @@ public class PrintingAccountStatementTest {
                 returnValue(new Date("14/01/2012"))
             ));
             oneOf(console).print("date || credit || debit || balance");
+            inSequence(printsSequence);
             oneOf(console).print("14/01/2012 || || 500.00 || 2500.00");
+            inSequence(printsSequence);
             oneOf(console).print("13/01/2012 || 2000.00 || || 3000.00");
+            inSequence(printsSequence);
             oneOf(console).print("10/01/2012 || 1000.00 || || 1000.00");
+            inSequence(printsSequence);
         }});
 
         account.deposit(1000);
         account.deposit(2000);
         account.withdraw(500);
-
         account.printStatement();
 
         context.assertIsSatisfied();

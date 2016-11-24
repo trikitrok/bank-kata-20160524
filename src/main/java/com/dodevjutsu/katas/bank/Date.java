@@ -40,4 +40,33 @@ public class Date {
             "date='" + date + '\'' +
             '}';
     }
+
+    public int compare(Date other) {
+        int v1 = yearNumber() * 1000 +
+            monthNumber(Date.this) * 100 +
+            dayNumber(Date.this);
+        int v2 = other.yearNumber() * 1000 +
+            monthNumber(other) * 100 +
+            dayNumber(other);
+
+        if (v1 < v2) {
+            return -1;
+        } else if (v1 == v2) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    private int dayNumber(Date other) {
+        return Integer.parseInt(other.day());
+    }
+
+    private int monthNumber(Date other) {
+        return Integer.parseInt(other.month());
+    }
+
+    private int yearNumber() {
+        return Integer.parseInt(year());
+    }
 }
